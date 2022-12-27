@@ -10,14 +10,14 @@ def check_python_compatibility():
     
     current_python_version = sys.version_info[0]
 
-    if current_python_version != 2:
-        print("\nThis script works on Python 2\n")
+    if current_python_version != 3:
+        print("\nThis script works on Python 3\n")
         exit()
 
 def input_blob_path(NEXUS_BLOB_PATH):
 
     while True:
-        nexus_blob_path_input = raw_input('Please enter NXRM Blobs full path (Default ' + NEXUS_BLOB_PATH + '):')
+        nexus_blob_path_input = input('Please enter NXRM Blobs full path (Default ' + NEXUS_BLOB_PATH + '):')
         if ("y" == nexus_blob_path_input) or ("yes" == nexus_blob_path_input) or ("" == nexus_blob_path_input): 
             
             nexus_blob_path_input = NEXUS_BLOB_PATH
@@ -38,7 +38,7 @@ def input_blob_path(NEXUS_BLOB_PATH):
 def input_size(SIZE_BYTES):
 
     while True:
-        size_input = raw_input('Please enter size in MB to show files greater than it (Default 4KB):')
+        size_input = input('Please enter size in MB to show files greater than it (Default 4KB):')
         if ("y" == size_input) or ("yes" == size_input) or ("" == size_input): 
             size_input = SIZE_BYTES
             break
@@ -56,7 +56,7 @@ def input_size(SIZE_BYTES):
 def input_others():
 
     while True:
-        blob_storage_name_input = raw_input('Please enter BLOB-STORAGE-NAME Filter (Default *):')
+        blob_storage_name_input = input('Please enter BLOB-STORAGE-NAME Filter (Default *):')
         if ("y" == blob_storage_name_input) or ("yes" == blob_storage_name_input) or ("" == blob_storage_name_input): 
             blob_storage_name_input = BLOB_STORAGE_NAME_FILTER
             break
@@ -64,7 +64,7 @@ def input_others():
             break
 
     while True:
-        reponame_input = raw_input('Please enter REPOSITORY-NAME Filter (Default *):')
+        reponame_input = input('Please enter REPOSITORY-NAME Filter (Default *):')
         if ("y" == reponame_input) or ("yes" == reponame_input) or ("" == reponame_input): 
             reponame_input = REPONAME_FILTER
             break
@@ -72,7 +72,7 @@ def input_others():
             break
 
     while True:
-        blobname_input = raw_input('Please enter BLOB-NAME Filter (Default *):')
+        blobname_input = input('Please enter BLOB-NAME Filter (Default *):')
         if ("y" == blobname_input) or ("yes" == blobname_input) or ("" == blobname_input): 
             blobname_input = BLOBNAME_FILTER
             break
@@ -80,7 +80,7 @@ def input_others():
             break
     
     while True:
-        contenttype_input = raw_input('Please enter CONTENT-TYPE Filter (Default *):')
+        contenttype_input = input('Please enter CONTENT-TYPE Filter (Default *):')
         if ("y" == contenttype_input) or ("yes" == contenttype_input) or ("" == contenttype_input): 
             contenttype_input = CONTENTTYPE_FILTER
             break
@@ -88,7 +88,7 @@ def input_others():
             break
 
     while True:
-        createdby_input = raw_input('Please enter CREATED-BY Filter (Default *):')
+        createdby_input = input('Please enter CREATED-BY Filter (Default *):')
         if ("y" == createdby_input) or ("yes" == createdby_input) or ("" == createdby_input): 
             createdby_input = CREATEDBY_FILTER
             break
@@ -96,7 +96,7 @@ def input_others():
             break
 
     while True:
-        creationtime_input = raw_input('Please enter CREATION-TIME Filter (Default *):')
+        creationtime_input = input('Please enter CREATION-TIME Filter (Default *):')
         if ("y" == creationtime_input) or ("yes" == creationtime_input) or ("" == creationtime_input): 
             creationtime_input = CREATIONTIME_FILTER
             break
@@ -104,7 +104,7 @@ def input_others():
             break
 
     while True:
-        createdbyip_input = raw_input('Please enter CREATED-BY-IP Filter (Default *):')
+        createdbyip_input = input('Please enter CREATED-BY-IP Filter (Default *):')
         if ("y" == createdbyip_input) or ("yes" == createdbyip_input) or ("" == createdbyip_input): 
             createdbyip_input = CREATEDBYIP_FILTER
             break
@@ -127,11 +127,11 @@ def get_bytes_filepaths_with_size(nexus_blob_path, size_bytes):
                 filepaths.append(os.path.join(r, file))
 
     # Re-populate list with filename, size tuples
-    for i in xrange(len(filepaths)):
+    for i in range(len(filepaths)):
         filepaths[i] = (filepaths[i], os.path.getsize(filepaths[i]))
     
     # Filter list to get only bytes files with size    
-    for i in xrange(len(filepaths)):
+    for i in range(len(filepaths)):
         file_size = float(str(filepaths[i]).split(' ')[1].replace(')',''))
         
         ### Filter only bytes file and files with size greater than equal to size_bytes
@@ -163,7 +163,7 @@ def get_files_with_properties(filepaths_bytes):
     blobName = ""
     
     #Filter list to get only bytes files with size    
-    for i in xrange(len(filepaths_bytes)):
+    for i in range(len(filepaths_bytes)):
         property_file_name = str(filepaths_bytes[i]).split(",")[0].replace('\'','').replace('(','').replace('bytes','properties')
         #print property_file_name
 
@@ -239,7 +239,7 @@ def generate_csv_file(blob_files_list_with_properties, OUTPUT_FILE_PATH):
     #Opening a file in append mode to write to it all the o/p data as csv
     f = open(output_file_path, "a")
 
-    for i in xrange(len(blob_files_list_with_properties)):
+    for i in range(len(blob_files_list_with_properties)):
 
         #print blob_files_list_with_properties[i] 
         f.write(blob_files_list_with_properties[i]+"\n")
